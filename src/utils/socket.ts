@@ -1,7 +1,7 @@
 import { createServer, Server } from 'http';
 import express from 'express';
 import socketIo from 'socket.io';
-import { Message } from './socketTypes';
+import { Message } from './socket-types';
 
 export default class Socket {
   public static readonly PORT: number = 5002;
@@ -84,7 +84,7 @@ export default class Socket {
     });
   }
 
-  public getInstance(): express.Application {
+  public getApp(): express.Application {
     return this.app;
   }
 }

@@ -7,6 +7,7 @@ import Socket from './socket';
 import { checkUpdateAvailableCLI } from './checkUpdateAvailable';
 
 const socket = new Socket();
+
 const serveComponentSet = (rootDir: string, port: number): void => {
   const server: Server = createServer(
     (response: IncomingMessage, request: ServerResponse): Promise<void> =>
@@ -41,7 +42,7 @@ export default async (rootDir: string, port: number): Promise<void> => {
   await checkUpdateAvailableCLI();
   if (existsSync(`${rootDir}/dist`)) {
     serveComponentSet(rootDir, port);
-    socket.getInstance();
+    socket.getApp();
   } else {
     console.error(
       chalk.red(
