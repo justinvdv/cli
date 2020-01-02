@@ -5,6 +5,8 @@
 This fork is a copy of https://github.com/bettyblocks/cli <br />
 This fork includes the functionalty for Live reload.
 
+**Install the clientside code to make it work**
+
 ## Installation
 
 To install the CLI you will need [a recent version of Node.js](https://nodejs.org/en/).
