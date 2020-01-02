@@ -1,5 +1,5 @@
 {
-  "name": "@betty-blocks/cli/",
+  "name": "@betty-blocks/cli",
   "version": "22.36.3",
   "description": "A Betty Blocks CLI",
   "main": "build/index.js",
