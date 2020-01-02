@@ -1,4 +1,4 @@
-# Betty Blocks Component CLI
+# Betty Blocks Component CLI with Live Reload
 
 ## Introduction
 
