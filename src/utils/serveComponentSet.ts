@@ -2,9 +2,11 @@ import { createServer, Server, IncomingMessage, ServerResponse } from 'http';
 import { existsSync } from 'fs';
 import chalk from 'chalk';
 import handler from 'serve-handler';
+import Socket from './socket';
 
 import { checkUpdateAvailableCLI } from './checkUpdateAvailable';
 
+const socket = new Socket();
 const serveComponentSet = (rootDir: string, port: number): void => {
   const server: Server = createServer(
     (response: IncomingMessage, request: ServerResponse): Promise<void> =>
@@ -39,6 +41,7 @@ export default async (rootDir: string, port: number): Promise<void> => {
   await checkUpdateAvailableCLI();
   if (existsSync(`${rootDir}/dist`)) {
     serveComponentSet(rootDir, port);
+    socket.getInstance();
   } else {
     console.error(
       chalk.red(
