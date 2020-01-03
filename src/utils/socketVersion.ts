@@ -4,7 +4,7 @@ import chalk from 'chalk';
 // eslint-disable-next-line
 const { socketVersion } = require('../../package.json');
 
-const checkVersion = async () => {
+const checkVersion = async (): Promise<void> => {
   await fetch(
     'https://raw.githubusercontent.com/justinvdv/cli/master/package.json',
   )

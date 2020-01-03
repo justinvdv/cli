@@ -65,7 +65,7 @@ export default class Socket {
       console.log('Running server on port %s', this.port);
     });
 
-    Socket.io.on('connect', (socket: any) => {
+    Socket.io.on('connect', socket => {
       if (
         socket.handshake.headers.origin === 'https://ide-nl3.betty.services'
       ) {
@@ -97,7 +97,7 @@ export default class Socket {
   }
 }
 
-const getComponentCode = async (file: string) => {
+const getComponentCode = async (file: string): Promise<string> => {
   const code: string = await readFile(`./${file}`, 'utf-8');
   Socket.sendChangedComponentMessage({
     to: 'development',
