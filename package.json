@@ -11,6 +11,7 @@
     "url": "https://github.com/bettyblocks/cli"
   },
   "scripts": {
+    "update-socket": "git pull | npm run build",
     "build": "tsc",
     "commit": "commit",
     "dev": "./node_modules/.bin/tsc-watch -p tsconfig.build.json",

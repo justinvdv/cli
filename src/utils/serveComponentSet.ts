@@ -5,6 +5,7 @@ import handler from 'serve-handler';
 import Socket from './socket';
 
 import { checkUpdateAvailableCLI } from './checkUpdateAvailable';
+import socketVersion from './socketVersion';
 
 const socket = new Socket();
 
@@ -40,6 +41,7 @@ const serveComponentSet = (rootDir: string, port: number): void => {
 
 export default async (rootDir: string, port: number): Promise<void> => {
   await checkUpdateAvailableCLI();
+  socketVersion();
   if (existsSync(`${rootDir}/dist`)) {
     serveComponentSet(rootDir, port);
     socket.getApp();
