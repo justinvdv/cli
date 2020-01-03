@@ -1,16 +1,20 @@
 import { createServer, Server } from 'http';
 import express from 'express';
 import socketIo from 'socket.io';
+import chokidar from 'chokidar';
+import { promises } from 'fs-extra';
 import { Message } from './socket-types';
 
+const { readFile } = promises;
+
 export default class Socket {
-  public static readonly PORT: number = 5002;
+  private readonly PORT: number = 5002;
 
   private app: express.Application = express();
 
   private server: Server = createServer();
 
-  private io: SocketIO.Server = socketIo();
+  public static io: SocketIO.Server = socketIo();
 
   private port: string | number = 0;
 
@@ -35,21 +39,25 @@ export default class Socket {
   }
 
   private config(): void {
-    this.port = process.env.PORT || Socket.PORT;
+    this.port = process.env.PORT || this.PORT;
   }
 
   private sockets(): void {
-    this.io = socketIo(this.server);
+    Socket.io = socketIo(this.server);
   }
 
   private sendMessage = (): void => {
     if (this.messageBox && this.rooms.length > 1) {
       this.messageBox.map((message, i) => {
-        this.io.to(message.to).emit('message', message);
+        Socket.io.to(message.to).emit('message', message);
         this.messageBox = this.messageBox.splice(i + 1, 1);
         return this.messageBox;
       });
     }
+  };
+
+  public static sendChangedComponentMessage = (message: Message): void => {
+    Socket.io.to('development').emit('message', message);
   };
 
   private listen(): void {
@@ -57,7 +65,7 @@ export default class Socket {
       console.log('Running server on port %s', this.port);
     });
 
-    this.io.on('connect', (socket: any) => {
+    Socket.io.on('connect', (socket: any) => {
       if (
         socket.handshake.headers.origin === 'https://ide-nl3.betty.services'
       ) {
@@ -88,3 +96,23 @@ export default class Socket {
     return this.app;
   }
 }
+
+const getComponentCode = async (file: string) => {
+  const code: string = await readFile(`./${file}`, 'utf-8');
+  Socket.sendChangedComponentMessage({
+    to: 'development',
+    message: null,
+    type: 'Update',
+    component: code.match(/\w+/g)![1],
+    endpoint: '',
+  });
+  return code.match(/\w+/g)![1];
+};
+
+chokidar
+  .watch('./src/components')
+  .on('change', path => {
+    getComponentCode(`./${path}`);
+    console.log(`${path} changed. Live reload triggered`);
+  })
+  .on('ready', () => console.log('Listening for file changes...'));
