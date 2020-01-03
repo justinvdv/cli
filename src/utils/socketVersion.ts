@@ -13,7 +13,7 @@ const checkVersion = async (): Promise<void> => {
       if (socketVersion < data.socketVersion)
         console.log(
           chalk.bgMagenta(
-            'There is a new Socket version available. Run npm run update-socket',
+            'There is a new Socket version available. Run "npm run update-socket" in cli dir',
           ),
         );
     });
