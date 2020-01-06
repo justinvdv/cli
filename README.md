@@ -12,10 +12,11 @@ This fork includes the functionalty for Live reload.
 To install the CLI you will need [a recent version of Node.js](https://nodejs.org/en/).
 
 ```bash
-$ git clone https://github.com/justinvdv/cli.git
+$ git clone https://github.com/cli.git
 $ cd cli
 $ npm install
 $ npm run build
+$ npm link
 ```
 
 ## Create a new Component Set
@@ -23,7 +24,7 @@ $ npm run build
 ```bash
 $ bb components create my-project
 $ cd my-project
-$ npm link @betty-blocks/justin/cli
+$ npm link @betty-blocks/cli
 $ npm install
 ```
 
