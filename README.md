@@ -16,7 +16,6 @@ $ git clone https://github.com/justinvdv/cli.git
 $ cd cli
 $ npm install
 $ npm run build
-$ yarn link
 ```
 
 ## Create a new Component Set
@@ -24,7 +23,7 @@ $ yarn link
 ```bash
 $ bb components create my-project
 $ cd my-project
-$ yarn link @betty-blocks/cli
+$ npm link @betty-blocks/justin/cli
 $ npm install
 ```
 
