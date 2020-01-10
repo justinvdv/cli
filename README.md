@@ -12,7 +12,7 @@ This fork includes the functionalty for Live reload.
 To install the CLI you will need [a recent version of Node.js](https://nodejs.org/en/).
 
 ```bash
-$ git clone https://github.com/cli.git
+$ git clone https://github.com/justinvdv/cli.git
 $ cd cli
 $ npm install
 $ npm run build
